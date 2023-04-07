@@ -8,7 +8,7 @@ env:
   OIDC_ARN: arn:aws:iam::459535173592:role/GitHubActionsOIDC
   ECR_REGISTRY: 459535173592.dkr.ecr.ap-northeast-1.amazonaws.com
   ECR_REPOSITORY: golang-simple-grpc-server
-  APP: go-simple-server
+  APP: golang-simple-grpc-server
 
 permissions:
   id-token: write
@@ -70,4 +70,3 @@ jobs:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: ${{ env.APP }}
           cluster: ${{ env.APP }}
-          wait-for-service-stability: true
