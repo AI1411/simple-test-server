@@ -7,7 +7,7 @@ on:
 env:
   OIDC_ARN: arn:aws:iam::459535173592:role/GitHubActionsOIDC
   ECR_REGISTRY: 459535173592.dkr.ecr.ap-northeast-1.amazonaws.com
-  ECR_REPOSITORY: go-simple-server
+  ECR_REPOSITORY: golang-simple-grpc-server
   APP: go-simple-server
 
 permissions:
@@ -30,10 +30,12 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      - name: Assume Role
-        uses: aws-actions/configure-aws-credentials@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
         with:
-          role-to-assume: ${{ env.OIDC_ARN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
       - name: Login to ECR
